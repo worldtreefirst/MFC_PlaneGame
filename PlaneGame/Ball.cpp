@@ -1,6 +1,7 @@
 #include "StdAfx.h"
 #include "Ball.h"
 #include "resource.h"
+#include "Constant.h"
 
 CImageList CBall::m_Images;
 
@@ -19,7 +20,7 @@ BOOL CBall::Draw(CDC* pDC,BOOL bPause)
 		m_ptPos.y = m_ptPos.y + m_nMotion * 8;
 	}
 
-	if(m_ptPos.y > GAME_HEIGHT+BALL_HEIGHT )
+	if(m_ptPos.y > WINDOW_HEIGHT+BALL_HEIGHT )
 		return FALSE;
 	if(m_ptPos.y < -BALL_HEIGHT)
 		return FALSE;
