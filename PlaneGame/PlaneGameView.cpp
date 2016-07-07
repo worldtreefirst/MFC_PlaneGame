@@ -236,6 +236,42 @@ void CPlaneGameView::AI()
 		m_ObjList[enEnemy].AddTail(new CEnemy);
 	}
 	nCreator--;
+
+	//战机导弹炸掉敌机
+	//Added 16/7/8 计分系统
+	POSITION mPos1 = NULL, mPos2 = NULL;
+	for (mPos1 = m_ObjList[enBomb].GetHeadPosition(); (mPos2 = mPos1) != NULL;)
+	{
+		CBomb* pBomb = (CBomb*)m_ObjList[enBomb].GetNext(mPos1);
+		CRect bRect = pBomb->GetRect();
+
+		POSITION ePos1 = NULL, ePos2 = NULL;
+		for (ePos1 = m_ObjList[enEnemy].GetHeadPosition(); (ePos2 = ePos1) != NULL;)
+		{
+			CEnemy* pEnemy = (CEnemy*)m_ObjList[enEnemy].GetNext(ePos1);
+			CRect mRect = pEnemy->GetRect();
+			CRect tmpRect;
+			if (tmpRect.IntersectRect(&bRect, mRect))
+			{
+				//添加爆炸效果
+				m_ObjList[enExplosion].AddTail(
+					new CExplosion(mRect.left, mRect.top)
+				);
+				//删除导弹
+				m_ObjList[enBomb].RemoveAt(mPos2);
+				delete pBomb;
+
+				//删除敌机
+				m_ObjList[enEnemy].RemoveAt(ePos2);
+				delete pEnemy;
+
+				//start 计分系统
+				pDoc->Goal();
+				//end 计分系统
+				break;
+			}
+		}
+	}
 		
 	if(m_pMe==NULL)
 		return;
@@ -325,44 +361,7 @@ void CPlaneGameView::AI()
 			m_pMe=NULL;
 			break;
 		}
-	}
-
-	//战机导弹炸掉敌机
-	//Added 16/7/8 计分系统
-	POSITION mPos1=NULL,mPos2=NULL;
-	for(mPos1=m_ObjList[enBomb].GetHeadPosition();(mPos2=mPos1)!=NULL;)
-	{
-		CBomb* pBomb = (CBomb*)m_ObjList[enBomb].GetNext(mPos1);
-		CRect bRect = pBomb->GetRect();
-
-		POSITION ePos1=NULL,ePos2=NULL;
-		for(ePos1=m_ObjList[enEnemy].GetHeadPosition();(ePos2=ePos1)!=NULL;)
-		{
-			CEnemy* pEnemy = (CEnemy*)m_ObjList[enEnemy].GetNext(ePos1);
-			CRect mRect = pEnemy->GetRect();
-			CRect tmpRect;
-			if(tmpRect.IntersectRect(&bRect,mRect))
-			{
-				//添加爆炸效果
-				m_ObjList[enExplosion].AddTail(
-					new CExplosion(mRect.left,mRect.top)
-					);
-				//删除导弹
-				m_ObjList[enBomb].RemoveAt(mPos2);
-				delete pBomb;
-
-				//删除敌机
-				m_ObjList[enEnemy].RemoveAt(ePos2);
-				delete pEnemy;
-
-				//start 计分系统
-				pDoc->Goal();
-				//end 计分系统
-				break;
-			}
-		}
-	}
-	
+	}	
 }
 void CPlaneGameView::OnTimer(UINT_PTR nIDEvent)
 {
