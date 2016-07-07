@@ -247,20 +247,20 @@ void CPlaneGameView::AI()
 		m_pMe->SetVerMotion(0);
 		m_pMe->SetHorMotion(0);
 
-		nMeMotion = GetKey(VK_UP);
-		if(nMeMotion==1)
+		if(GetKey(VK_UP) == 1
+			||GetKey('W') == 1)
 			m_pMe->SetVerMotion(1);
-		    
-		nMeMotion = GetKey(VK_DOWN);
-		if(nMeMotion==1)
+
+		if(GetKey(VK_DOWN) == 1
+			||GetKey('S') == 1)
 			m_pMe->SetVerMotion(-1);
 
-		nMeMotion = GetKey(VK_RIGHT);
-		if(nMeMotion==1)
+		if(GetKey(VK_RIGHT) == 1
+			||GetKey('D') ==1)
 			m_pMe->SetHorMotion(1);
 
-		nMeMotion = GetKey(VK_LEFT);
-		if(nMeMotion==1)
+		if(GetKey(VK_LEFT) == 1
+			||GetKey('A') == 1)
 			m_pMe->SetHorMotion(-1);
 	}
 	
