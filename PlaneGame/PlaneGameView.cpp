@@ -178,11 +178,6 @@ void CPlaneGameView::UpdateFrame(CDC* pMemDC)
 	ASSERT_VALID(pDoc);
 	if (!pDoc)
 		return;
-	CString text;
-	text.Format(_T("Current Socre: %d"), pDoc->GetScore());
-	pMemDC->SetBkMode(TRANSPARENT);
-	pMemDC->SetTextColor(RGB(255, 0, 0));
-	pMemDC->TextOut(8, 8, text);
 	//end 计分系统
 
 
@@ -190,6 +185,11 @@ void CPlaneGameView::UpdateFrame(CDC* pMemDC)
 	if(m_pMe!=NULL)
 	{
 	   m_pMe->Draw(m_pMemDC,FALSE);
+	   CString text;
+	   text.Format(_T("Current Socre: %d"), pDoc->GetScore());
+	   pMemDC->SetBkMode(TRANSPARENT);
+	   pMemDC->SetTextColor(RGB(255, 0, 0));
+	   pMemDC->TextOut(10, 10, text);
 	}
 	else
 	{   //Game Over
