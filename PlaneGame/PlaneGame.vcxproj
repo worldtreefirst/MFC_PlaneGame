@@ -133,6 +133,7 @@
   <ItemGroup>
     <ClInclude Include="Ball.h" />
     <ClInclude Include="Bomb.h" />
+    <ClInclude Include="Constant.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Explosion.h" />
     <ClInclude Include="GameObject.h" />

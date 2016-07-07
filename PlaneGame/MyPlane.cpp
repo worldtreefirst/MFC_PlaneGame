@@ -1,6 +1,7 @@
 #include "StdAfx.h"
 #include "MyPlane.h"
 #include "resource.h"
+#include "Constant.h"
 
 CImageList CMyPlane::m_Images;
 
@@ -10,8 +11,8 @@ CMyPlane::~CMyPlane(void)
 CMyPlane::CMyPlane(void):m_nHorMotion(0),m_nVerMotion(0)
 {
 	m_nWait = 0;
-	m_ptPos.x = 150;
-	m_ptPos.y = 200;
+	m_ptPos.x = (WINDOW_WIDTH - PLANE_WIDTH) / 2;
+	m_ptPos.y = (WINDOW_HEIGHT-PLANE_HEIGHT) / 2;
 }
 
 BOOL CMyPlane::Fired()
@@ -39,16 +40,16 @@ BOOL CMyPlane::Draw(CDC* pDC,BOOL bPause)
 		m_ptPos.y = m_ptPos.y - m_nVerMotion*6;
 	}
 
-	if(m_ptPos.x>=GAME_WIDTH-PLANE_WIDTH)
-		m_ptPos.x =GAME_WIDTH-PLANE_WIDTH;
+	if(m_ptPos.x>=WINDOW_WIDTH-PLANE_WIDTH)
+		m_ptPos.x =WINDOW_WIDTH-PLANE_WIDTH;
 	if(m_ptPos.x<=0)
 		m_ptPos.x=0;
 
 	if(m_ptPos.y<=0)
 		m_ptPos.y =0;
 
-	if(m_ptPos.y>=GAME_HEIGHT-PLANE_HEIGHT)
-		m_ptPos.y=GAME_HEIGHT-PLANE_HEIGHT;
+	if(m_ptPos.y>=WINDOW_HEIGHT-PLANE_HEIGHT)
+		m_ptPos.y=WINDOW_HEIGHT-PLANE_HEIGHT;
 
 
 	m_Images.Draw(pDC,0,m_ptPos,ILD_TRANSPARENT);

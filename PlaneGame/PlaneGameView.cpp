@@ -3,7 +3,7 @@
 
 #include "stdafx.h"
 #include "PlaneGame.h"
-
+#include "Constant.h"
 #include "PlaneGameDoc.h"
 #include "PlaneGameView.h"
 #include "MyPlane.h"
@@ -138,7 +138,7 @@ BOOL CPlaneGameView::InitGame()
 
 	//建立内存位图
 	m_pMemBitmap = new CBitmap;
-	m_pMemBitmap->CreateCompatibleBitmap(m_pDC,GAME_WIDTH,GAME_HEIGHT);
+	m_pMemBitmap->CreateCompatibleBitmap(m_pDC,WINDOW_WIDTH,WINDOW_HEIGHT);
 
 	//将位图选入内存DC
 	m_pMemDC->SelectObject(m_pMemBitmap);
@@ -170,7 +170,7 @@ BOOL CPlaneGameView::InitGame()
 void CPlaneGameView::UpdateFrame(CDC* pMemDC)
 {
 	//绘制天空
-	pMemDC->FillSolidRect(0,0,GAME_WIDTH,GAME_HEIGHT,RGB(84, 142, 239));
+	pMemDC->FillSolidRect(0,0,WINDOW_WIDTH,WINDOW_HEIGHT,RGB(84, 142, 239));
 
 	//start 计分系统
 	//绘制天空之后绘制得分，防止遮盖
@@ -182,7 +182,7 @@ void CPlaneGameView::UpdateFrame(CDC* pMemDC)
 	text.Format(_T("Current Socre: %d"), pDoc->GetScore());
 	pMemDC->SetBkMode(TRANSPARENT);
 	pMemDC->SetTextColor(RGB(255, 0, 0));
-	pMemDC->TextOut(10, 10, text);
+	pMemDC->TextOut(8, 8, text);
 	//end 计分系统
 
 
@@ -198,7 +198,7 @@ void CPlaneGameView::UpdateFrame(CDC* pMemDC)
 		pMemDC->SetBkMode(TRANSPARENT);
 		pMemDC->SetTextAlign(TA_CENTER);
 		pMemDC->SetTextColor(RGB(255,0,0));
-		pMemDC->TextOut(GAME_WIDTH/2,GAME_HEIGHT/2,str);
+		pMemDC->TextOut(WINDOW_WIDTH/2,WINDOW_HEIGHT/2,str);
 	}
 	
 	//绘制 导弹、爆炸、敌机、子弹
@@ -217,7 +217,7 @@ void CPlaneGameView::UpdateFrame(CDC* pMemDC)
 	}
 
 	//复制内存DC到设备DC
-	m_pDC->BitBlt(0,0,GAME_WIDTH,GAME_HEIGHT,m_pMemDC,0,0,SRCCOPY);
+	m_pDC->BitBlt(0,0,WINDOW_WIDTH,WINDOW_HEIGHT,m_pMemDC,0,0,SRCCOPY);
 }
 void CPlaneGameView::AI()
 {

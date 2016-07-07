@@ -5,7 +5,7 @@
 #include "PlaneGame.h"
 
 #include "MainFrm.h"
-
+#include "Constant.h"
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -46,10 +46,10 @@ BOOL CMainFrame::PreCreateWindow(CREATESTRUCT& cs)
 	if( !CFrameWnd::PreCreateWindow(cs) )
 		return FALSE;
 	
-	cs.x = (::GetSystemMetrics(SM_CXSCREEN)-GAME_WIDTH) / 2;
-	cs.y = (::GetSystemMetrics(SM_CYSCREEN)-GAME_HEIGHT) / 2;
-	cs.cx = GAME_WIDTH;
-	cs.cy = GAME_HEIGHT+::GetSystemMetrics(SM_CYMENU)+::GetSystemMetrics(SM_CYCAPTION);
+	cs.x = (::GetSystemMetrics(SM_CXSCREEN)-WINDOW_WIDTH) / 2;
+	cs.y = (::GetSystemMetrics(SM_CYSCREEN)-WINDOW_HEIGHT) / 2;
+	cs.cx = WINDOW_WIDTH;
+	cs.cy = WINDOW_HEIGHT+::GetSystemMetrics(SM_CYMENU)+::GetSystemMetrics(SM_CYCAPTION);
 
 	cs.dwExStyle &= ~WS_EX_CLIENTEDGE;
 	cs.style &= ~FWS_ADDTOTITLE;
