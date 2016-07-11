@@ -13,6 +13,8 @@
 #include "Explosion.h"
 #include <atlimage.h>
 
+#include "Background.h"
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -143,6 +145,7 @@ BOOL CPlaneGameView::InitGame()
 	//将位图选入内存DC
 	m_pMemDC->SelectObject(m_pMemBitmap);
 
+	CBackground::LoadImage();
 	CMyPlane::LoadImage();
 	CEnemy::LoadImage();
 	CBomb::LoadImage();
@@ -151,6 +154,9 @@ BOOL CPlaneGameView::InitGame()
 
 	//产生主角(战机)
 	m_pMe = new CMyPlane;
+	//产生背景
+	//TODO
+	background = new CBackground;
 
 	//start 计分系统
 	CPlaneGameDoc* pDoc = GetDocument();
@@ -161,16 +167,17 @@ BOOL CPlaneGameView::InitGame()
 	pDoc->InitScore();
 	//end 计分系统
 
+	bDrawBackground = TRUE;
+
 	//启动游戏
-	SetTimer(1,30,NULL);
+	SetTimer(1,25,NULL);
 
 	return TRUE;
 }
 
 void CPlaneGameView::UpdateFrame(CDC* pMemDC)
 {
-	//绘制天空
-	pMemDC->FillSolidRect(0,0,WINDOW_WIDTH,WINDOW_HEIGHT,RGB(84, 142, 239));
+	background->Draw(m_pMemDC, !bDrawBackground);
 
 	//start 计分系统
 	//绘制天空之后绘制得分，防止遮盖
@@ -180,11 +187,12 @@ void CPlaneGameView::UpdateFrame(CDC* pMemDC)
 		return;
 	//end 计分系统
 
-
 	//绘制我方战机
 	if(m_pMe!=NULL)
 	{
-	   m_pMe->Draw(m_pMemDC,FALSE);
+		bDrawBackground = TRUE;
+		pDoc->timeGoal();
+		m_pMe->Draw(m_pMemDC,FALSE);
 	   CString text;
 	   text.Format(_T("Current Socre: %d"), pDoc->GetScore());
 	   pMemDC->SetBkMode(TRANSPARENT);
@@ -193,6 +201,7 @@ void CPlaneGameView::UpdateFrame(CDC* pMemDC)
 	}
 	else
 	{   //Game Over
+		bDrawBackground = FALSE;
 		CString str;
 		str.Format(_T("Game Over! \n Your final score:%d"), pDoc->GetScore());
 		pMemDC->SetBkMode(TRANSPARENT);

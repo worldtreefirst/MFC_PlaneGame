@@ -1,9 +1,10 @@
+
 // PlaneGameView.h : CPlaneGameView 类的接口
 //
 
 
 #pragma once
-
+class CBackground;
 class CMyPlane;
 class CPlaneGameView : public CView
 {
@@ -66,6 +67,7 @@ protected:
 	}
 	
 	CMyPlane*  m_pMe;
+	CBackground* background;
 
 	CObList    m_ObjList[4];
 
@@ -79,6 +81,10 @@ public:
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 
 	afx_msg void OnDestroy();
+
+private:
+	CBitmap bitmap_background;
+	BOOL bDrawBackground;
 };
 
 #ifndef _DEBUG  // PlaneGameView.cpp 中的调试版本

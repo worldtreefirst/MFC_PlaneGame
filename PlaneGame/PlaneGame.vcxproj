@@ -115,6 +115,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Background.cpp" />
     <ClCompile Include="Ball.cpp" />
     <ClCompile Include="Bomb.cpp" />
     <ClCompile Include="Enemy.cpp" />
@@ -131,6 +132,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Background.h" />
     <ClInclude Include="Ball.h" />
     <ClInclude Include="Bomb.h" />
     <ClInclude Include="Constant.h" />
@@ -147,6 +149,9 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\..\background5.bmp" />
+    <Image Include="..\..\resources\background.bmp" />
+    <Image Include="..\..\resources\background7.bmp" />
     <Image Include="plane\ball.BMP" />
     <Image Include="plane\ball1.BMP" />
     <Image Include="plane\ball2.bmp" />

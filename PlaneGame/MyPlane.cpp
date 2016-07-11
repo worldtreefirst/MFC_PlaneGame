@@ -12,7 +12,7 @@ CMyPlane::CMyPlane(void):m_nHorMotion(0),m_nVerMotion(0)
 {
 	m_nWait = 0;
 	m_ptPos.x = (WINDOW_WIDTH - PLANE_WIDTH) / 2;
-	m_ptPos.y = (WINDOW_HEIGHT-PLANE_HEIGHT) / 2;
+	m_ptPos.y = (WINDOW_HEIGHT - PLANE_HEIGHT) / 2;
 }
 
 BOOL CMyPlane::Fired()

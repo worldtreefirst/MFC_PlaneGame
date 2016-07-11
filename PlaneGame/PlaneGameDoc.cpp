@@ -75,6 +75,7 @@ void CPlaneGameDoc::Dump(CDumpContext& dc) const
 void CPlaneGameDoc::InitScore()
 {
 	score = 0;
+	time = 0;
 }
 void CPlaneGameDoc::Goal()
 {
@@ -83,6 +84,14 @@ void CPlaneGameDoc::Goal()
 int CPlaneGameDoc::GetScore() const
 {
 	return score;
+}
+void CPlaneGameDoc::timeGoal()
+{
+	time += 1;
+	if (time == 35) {
+		score += 1;
+		time = 0;
+	}
 }
 #endif //_DEBUG
 

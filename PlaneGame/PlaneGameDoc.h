@@ -38,10 +38,12 @@ protected:
 
 private:
 	int score;
+	int time;
 public:
 	void InitScore();
 	void Goal();
 	int GetScore() const;
+	void timeGoal();
 };
 
 
