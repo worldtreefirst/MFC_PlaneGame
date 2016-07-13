@@ -85,6 +85,14 @@ public:
 private:
 	CBitmap bitmap_background;
 	BOOL bDrawBackground;
+
+	//add 暂停
+private:
+	BOOL bPause;
+	void cleanAndRestart();
+	//end 暂停
+public:
+	afx_msg void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
 };
 
 #ifndef _DEBUG  // PlaneGameView.cpp 中的调试版本

@@ -5,6 +5,7 @@
 #include "PlaneGame.h"
 
 #include "PlaneGameDoc.h"
+#include "Constant.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -91,6 +92,24 @@ void CPlaneGameDoc::timeGoal()
 	if (time == 35) {
 		score += 1;
 		time = 0;
+	}
+}
+void CPlaneGameDoc::initLives()
+{
+	currentLives = MAX_LIVES_NUM;
+}
+int CPlaneGameDoc::getCurrrentLives()const
+{
+	return currentLives;
+}
+void CPlaneGameDoc::hit()
+{
+	--currentLives;
+}
+void CPlaneGameDoc::recover()
+{
+	if (currentLives != MAX_LIVES_NUM) {
+		++currentLives;
 	}
 }
 #endif //_DEBUG

@@ -121,6 +121,8 @@ protected:
 // 实现
 protected:
 	DECLARE_MESSAGE_MAP()
+public:
+	afx_msg void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
 };
 
 CAboutDlg::CAboutDlg() : CDialog(CAboutDlg::IDD)
@@ -133,6 +135,7 @@ void CAboutDlg::DoDataExchange(CDataExchange* pDX)
 }
 
 BEGIN_MESSAGE_MAP(CAboutDlg, CDialog)
+	ON_WM_KEYDOWN()
 END_MESSAGE_MAP()
 
 // 用于运行对话框的应用程序命令
@@ -145,3 +148,12 @@ void CPlaneGameApp::OnAppAbout()
 
 // CPlaneGameApp 消息处理程序
 
+
+
+void CAboutDlg::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
+{
+	// TODO: 在此添加消息处理程序代码和/或调用默认值
+
+	
+	CDialog::OnKeyDown(nChar, nRepCnt, nFlags);
+}

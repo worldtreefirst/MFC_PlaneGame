@@ -32,6 +32,7 @@ BEGIN_MESSAGE_MAP(CPlaneGameView, CView)
 	ON_WM_TIMER()
 
 	ON_WM_DESTROY()
+	ON_WM_KEYDOWN()
 END_MESSAGE_MAP()
 
 // CPlaneGameView 构造/析构
@@ -125,6 +126,7 @@ void CPlaneGameView::StopGame()
 
 BOOL CPlaneGameView::InitGame()
 {
+	bPause = TRUE;
 	CRect rc;
 	GetClientRect(rc);
 
@@ -165,6 +167,7 @@ BOOL CPlaneGameView::InitGame()
 		return FALSE;
 
 	pDoc->InitScore();
+	pDoc->initLives();
 	//end 计分系统
 
 	bDrawBackground = TRUE;
@@ -177,8 +180,8 @@ BOOL CPlaneGameView::InitGame()
 
 void CPlaneGameView::UpdateFrame(CDC* pMemDC)
 {
-	background->Draw(m_pMemDC, !bDrawBackground);
-
+	background->Draw(m_pMemDC, bPause||!bDrawBackground);
+	BOOL bShowMsgBox;
 	//start 计分系统
 	//绘制天空之后绘制得分，防止遮盖
 	CPlaneGameDoc* pDoc = GetDocument();
@@ -191,16 +194,20 @@ void CPlaneGameView::UpdateFrame(CDC* pMemDC)
 	if(m_pMe!=NULL)
 	{
 		bDrawBackground = TRUE;
-		pDoc->timeGoal();
-		m_pMe->Draw(m_pMemDC,FALSE);
+		if(!bPause)pDoc->timeGoal();
+		m_pMe->Draw(m_pMemDC,bPause);
+		pMemDC->SetBkMode(TRANSPARENT);
+		pMemDC->SetTextColor(RGB(255, 0, 0));
 	   CString text;
 	   text.Format(_T("Current Socre: %d"), pDoc->GetScore());
-	   pMemDC->SetBkMode(TRANSPARENT);
-	   pMemDC->SetTextColor(RGB(255, 0, 0));
 	   pMemDC->TextOut(10, 10, text);
+	   CString lives;
+	   lives.Format(_T("Rest lives: %d"), pDoc->getCurrrentLives());
+	   pMemDC->TextOut(10, 30, lives);
 	}
 	else
 	{   //Game Over
+		bShowMsgBox = bDrawBackground;
 		bDrawBackground = FALSE;
 		CString str;
 		str.Format(_T("Game Over! \n Your final score:%d"), pDoc->GetScore());
@@ -208,6 +215,7 @@ void CPlaneGameView::UpdateFrame(CDC* pMemDC)
 		pMemDC->SetTextAlign(TA_CENTER);
 		pMemDC->SetTextColor(RGB(255,0,0));
 		pMemDC->TextOut(WINDOW_WIDTH/2,WINDOW_HEIGHT/2,str);
+
 	}
 	
 	//绘制 导弹、爆炸、敌机、子弹
@@ -217,7 +225,7 @@ void CPlaneGameView::UpdateFrame(CDC* pMemDC)
 		for( pos1 = m_ObjList[i].GetHeadPosition(); ( pos2 = pos1 ) != NULL; )
 		{
 			CGameObject* pObj = (CGameObject*)m_ObjList[i].GetNext( pos1 );
-			if(!pObj->Draw(pMemDC,FALSE))
+			if(!pObj->Draw(pMemDC, bPause))
 			{
 				m_ObjList[i].RemoveAt(pos2);
 				delete pObj;
@@ -366,11 +374,27 @@ void CPlaneGameView::AI()
 			delete pBall;
 
 			//删除战机
-			delete m_pMe;
-			m_pMe=NULL;
+			//delete m_pMe;
+			//m_pMe=NULL;
+
+			if (pDoc->getCurrrentLives() > 0) {
+				pDoc->hit();
+			} else {
+				delete m_pMe;
+				m_pMe=NULL;
+			}
 			break;
 		}
-	}	
+	}
+
+	if (m_pMe == NULL) {
+
+			if (IDRETRY ==
+				AfxMessageBox(_T("您已经阵亡，要重试么"), MB_RETRYCANCEL | MB_ICONINFORMATION)) {
+				cleanAndRestart();
+				return;
+			}
+	}
 }
 void CPlaneGameView::OnTimer(UINT_PTR nIDEvent)
 {
@@ -388,4 +412,35 @@ void CPlaneGameView::OnDestroy()
 	CView::OnDestroy();
 	this->StopGame();
 	// TODO: 在此处添加消息处理程序代码
+}
+
+
+void CPlaneGameView::cleanAndRestart()
+{
+	CPlaneGameDoc* pDoc = GetDocument();
+	ASSERT_VALID(pDoc);
+	if (!pDoc)
+		return;
+	
+	m_ObjList[enEnemy].RemoveAll();
+	m_ObjList[enBall].RemoveAll();
+
+	m_pMe = new CMyPlane;
+	pDoc->InitScore();
+	pDoc->initLives();
+	bPause = FALSE;
+	bDrawBackground = TRUE;
+	
+}
+
+void CPlaneGameView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
+{
+	switch (nChar) {
+	case 'P':
+	case VK_PAUSE:
+	case VK_RETURN:
+		bPause = !bPause;
+		break;
+	}
+	CView::OnKeyDown(nChar, nRepCnt, nFlags);
 }

@@ -35,7 +35,7 @@ protected:
 // 生成的消息映射函数
 protected:
 	DECLARE_MESSAGE_MAP()
-
+//add 得分系统
 private:
 	int score;
 	int time;
@@ -44,6 +44,18 @@ public:
 	void Goal();
 	int GetScore() const;
 	void timeGoal();
+//end 得分系统
+
+//add 生命
+	//TODO
+private:
+	int currentLives;
+public:
+	void initLives();
+	int getCurrrentLives()const;
+	void hit();
+	void recover();
+//end 生命
 };
 
 
