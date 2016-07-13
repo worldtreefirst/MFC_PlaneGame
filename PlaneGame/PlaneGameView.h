@@ -91,6 +91,8 @@ private:
 	BOOL bPause;
 	void cleanAndRestart();
 	//end ÔÝÍ£
+
+	void GodWillHelpYou();
 public:
 	afx_msg void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
 };

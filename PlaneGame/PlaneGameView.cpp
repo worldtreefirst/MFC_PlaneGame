@@ -433,6 +433,30 @@ void CPlaneGameView::cleanAndRestart()
 	
 }
 
+void CPlaneGameView::GodWillHelpYou()
+{
+	CPlaneGameDoc* pDoc = GetDocument();
+	ASSERT_VALID(pDoc);
+	if (!pDoc)
+		return;
+	
+	POSITION p;
+	//p1 = m_ObjList[enEnemy].GetTailPosition();
+	for (p = m_ObjList[enEnemy].GetHeadPosition(); p!=NULL;) {
+		CRect r = ((CEnemy*)m_ObjList[enEnemy].GetNext(p))->GetRect();
+		m_ObjList[enExplosion].AddTail(
+			new CExplosion(
+				r.left,
+				r.top
+			)
+		);
+
+		pDoc->Goal();
+	}
+	m_ObjList[enEnemy].RemoveAll();
+	m_ObjList[enBall].RemoveAll();
+}
+
 void CPlaneGameView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
 	switch (nChar) {
@@ -440,6 +464,9 @@ void CPlaneGameView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	case VK_PAUSE:
 	case VK_RETURN:
 		bPause = !bPause;
+		break;
+	case 'G':
+		GodWillHelpYou();
 		break;
 	}
 	CView::OnKeyDown(nChar, nRepCnt, nFlags);
