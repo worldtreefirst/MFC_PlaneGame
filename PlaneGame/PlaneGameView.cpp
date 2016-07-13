@@ -247,7 +247,7 @@ void CPlaneGameView::AI()
 	static int nCreator = rand() %5+10;
 
 	//随机产生敌机
-	if(nCreator<=0)
+	if(nCreator<=0 && !bPause)
 	{
 		nCreator = rand()%5+10;
 		m_ObjList[enEnemy].AddTail(new CEnemy);
