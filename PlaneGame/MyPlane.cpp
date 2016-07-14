@@ -41,7 +41,7 @@ BOOL CMyPlane::Draw(CDC* pDC,BOOL bPause)
 	}
 
 	if(m_ptPos.x>=WINDOW_WIDTH-PLANE_WIDTH)
-		m_ptPos.x =WINDOW_WIDTH-PLANE_WIDTH;
+		m_ptPos.x = WINDOW_WIDTH-PLANE_WIDTH;
 	if(m_ptPos.x<=0)
 		m_ptPos.x=0;
 

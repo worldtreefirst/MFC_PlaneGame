@@ -206,7 +206,9 @@ IDB_BALL                BITMAP                  "plane\\ball.BMP"
 
 IDB_ENEMY               BITMAP                  "plane\\enemy.bmp"
 
-IDB_BACKGROUND          BITMAP                  "C:\\vsprojects\\resources\\background.bmp"
+IDB_BOSS                BITMAP                  "C:\\vsprojects\\resources\\boss.bmp"
+
+IDB_BACKGROUND          BITMAP                  "C:\\vsprojects\\resources\\bk.bmp"
 
 
 /////////////////////////////////////////////////////////////////////////////

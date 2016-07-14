@@ -7,7 +7,7 @@ CImageList CEnemy::m_Images;
 CEnemy::CEnemy(void)
 {
 	//����ȷ��Xλ��
-	m_ptPos.x = rand()%(WINDOW_WIDTH-ENEMY_HEIGHT)+1;
+	m_ptPos.x = rand() % (WINDOW_WIDTH - ENEMY_HEIGHT) + 1;
 
 	//����ȷ��ͼ������
 	m_nImgIndex = rand()%2;

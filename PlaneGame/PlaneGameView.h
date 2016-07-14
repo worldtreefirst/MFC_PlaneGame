@@ -6,6 +6,7 @@
 #pragma once
 class CBackground;
 class CMyPlane;
+class CBoss;
 class CPlaneGameView : public CView
 {
 
@@ -67,6 +68,7 @@ protected:
 	}
 	
 	CMyPlane*  m_pMe;
+	CBoss* m_pBoss;
 	CBackground* background;
 
 	CObList    m_ObjList[4];
@@ -92,7 +94,7 @@ private:
 	void cleanAndRestart();
 	//end ÔÝÍ£
 
-	void GodWillHelpYou();
+	void GodHelpYou();
 public:
 	afx_msg void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
 };

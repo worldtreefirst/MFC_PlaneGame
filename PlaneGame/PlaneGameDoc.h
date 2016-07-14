@@ -56,6 +56,14 @@ public:
 	void hit();
 	void recover();
 //end ÉúÃü
+//add LEVEL
+private:
+	int level;
+public:
+	void levelUp();
+	int getLevel()const;
+
+//end LEVEL
 };
 
 

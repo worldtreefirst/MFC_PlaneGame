@@ -25,6 +25,7 @@ END_MESSAGE_MAP()
 CPlaneGameDoc::CPlaneGameDoc()
 {
 	// TODO: 在此添加一次性构造代码
+	level = 1;
 
 }
 
@@ -111,6 +112,14 @@ void CPlaneGameDoc::recover()
 	if (currentLives != MAX_LIVES_NUM) {
 		++currentLives;
 	}
+}
+void CPlaneGameDoc::levelUp()
+{
+	++level;
+}
+int CPlaneGameDoc::getLevel() const
+{
+	return level;
 }
 #endif //_DEBUG
 

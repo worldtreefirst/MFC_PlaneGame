@@ -1,6 +1,8 @@
 // PlaneGameView.cpp : CPlaneGameView 类的实现
 //
 
+/*获得当前levelx1000分出现boss，打败boss进入下一关*/
+
 #include "stdafx.h"
 #include "PlaneGame.h"
 #include "Constant.h"
@@ -14,6 +16,7 @@
 #include <atlimage.h>
 
 #include "Background.h"
+#include "Boss.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -122,6 +125,8 @@ void CPlaneGameView::StopGame()
 	delete m_pMemDC;
 	delete m_pDC;
 	delete m_pMemBitmap;
+	delete m_pBoss;
+	delete background;
 }
 
 BOOL CPlaneGameView::InitGame()
@@ -153,13 +158,14 @@ BOOL CPlaneGameView::InitGame()
 	CBomb::LoadImage();
 	CBall::LoadImage();
 	CExplosion::LoadImage();
+	CBoss::LoadImage();
 
 	//产生主角(战机)
 	m_pMe = new CMyPlane;
+	m_pBoss = new CBoss;
 	//产生背景
 	//TODO
 	background = new CBackground;
-
 	//start 计分系统
 	CPlaneGameDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
@@ -197,13 +203,12 @@ void CPlaneGameView::UpdateFrame(CDC* pMemDC)
 		if(!bPause)pDoc->timeGoal();
 		m_pMe->Draw(m_pMemDC,bPause);
 		pMemDC->SetBkMode(TRANSPARENT);
-		pMemDC->SetTextColor(RGB(255, 0, 0));
-	   CString text;
+		pMemDC->SetTextColor(RGB(255, 255, 255));
+	   CString text,lives;
 	   text.Format(_T("Current Socre: %d"), pDoc->GetScore());
-	   pMemDC->TextOut(10, 10, text);
-	   CString lives;
 	   lives.Format(_T("Rest lives: %d"), pDoc->getCurrrentLives());
-	   pMemDC->TextOut(10, 30, lives);
+	   pMemDC->TextOut(15, 15, text);
+	   pMemDC->TextOut(15, 35, lives);
 	}
 	else
 	{   //Game Over
@@ -233,6 +238,10 @@ void CPlaneGameView::UpdateFrame(CDC* pMemDC)
 		}
 	}
 
+	if (m_pBoss->isShow()) {
+		m_pBoss->Draw(pMemDC, bPause);
+	}
+
 	//复制内存DC到设备DC
 	m_pDC->BitBlt(0,0,WINDOW_WIDTH,WINDOW_HEIGHT,m_pMemDC,0,0,SRCCOPY);
 }
@@ -242,6 +251,10 @@ void CPlaneGameView::AI()
 	ASSERT_VALID(pDoc);
 	if (!pDoc)
 		return;
+
+	if (pDoc->GetScore() >= pDoc->getLevel() * 1000) {
+		m_pBoss->setShow(TRUE);
+	}
 	//引入全局单例
 
 	static int nCreator = rand() %5+10;
@@ -254,42 +267,6 @@ void CPlaneGameView::AI()
 	}
 	nCreator--;
 
-	//战机导弹炸掉敌机
-	//Added 16/7/8 计分系统
-	POSITION mPos1 = NULL, mPos2 = NULL;
-	for (mPos1 = m_ObjList[enBomb].GetHeadPosition(); (mPos2 = mPos1) != NULL;)
-	{
-		CBomb* pBomb = (CBomb*)m_ObjList[enBomb].GetNext(mPos1);
-		CRect bRect = pBomb->GetRect();
-
-		POSITION ePos1 = NULL, ePos2 = NULL;
-		for (ePos1 = m_ObjList[enEnemy].GetHeadPosition(); (ePos2 = ePos1) != NULL;)
-		{
-			CEnemy* pEnemy = (CEnemy*)m_ObjList[enEnemy].GetNext(ePos1);
-			CRect mRect = pEnemy->GetRect();
-			CRect tmpRect;
-			if (tmpRect.IntersectRect(&bRect, mRect))
-			{
-				//添加爆炸效果
-				m_ObjList[enExplosion].AddTail(
-					new CExplosion(mRect.left, mRect.top)
-				);
-				//删除导弹
-				m_ObjList[enBomb].RemoveAt(mPos2);
-				delete pBomb;
-
-				//删除敌机
-				m_ObjList[enEnemy].RemoveAt(ePos2);
-				delete pEnemy;
-
-				//start 计分系统
-				pDoc->Goal();
-				//end 计分系统
-				break;
-			}
-		}
-	}
-		
 	if(m_pMe==NULL)
 		return;
 
@@ -395,6 +372,69 @@ void CPlaneGameView::AI()
 				return;
 			}
 	}
+
+	//战机导弹炸掉敌机
+	//Added 16/7/8 计分系统
+	POSITION mPos1 = NULL, mPos2 = NULL;
+	for (mPos1 = m_ObjList[enBomb].GetHeadPosition(); (mPos2 = mPos1) != NULL;)
+	{
+		CBomb* pBomb = (CBomb*)m_ObjList[enBomb].GetNext(mPos1);
+		CRect bRect = pBomb->GetRect();
+		CRect tmpRect;
+		
+
+		if (m_pBoss->isShow() && tmpRect.IntersectRect(&bRect, m_pBoss->GetRect()))
+		{
+			//添加爆炸效果
+			m_ObjList[enExplosion].AddTail(
+				new CExplosion(bRect.left, bRect.top)
+			);
+			//删除导弹
+			m_ObjList[enBomb].RemoveAt(mPos2);
+			delete pBomb;
+
+			if ((m_pBoss->hit()) == 0) {
+				background->levelUp();
+				m_pBoss->levelUp();
+				pDoc->levelUp();
+			}
+			//end 计分系统
+			break;
+		}
+		else {
+			POSITION ePos1 = NULL, ePos2 = NULL;
+			for (ePos1 = m_ObjList[enEnemy].GetHeadPosition(); (ePos2 = ePos1) != NULL;)
+			{
+				CEnemy* pEnemy = (CEnemy*)m_ObjList[enEnemy].GetNext(ePos1);
+				CRect mRect = pEnemy->GetRect();
+
+				if (tmpRect.IntersectRect(&bRect, mRect))
+				{
+					//添加爆炸效果
+					m_ObjList[enExplosion].AddTail(
+						new CExplosion(mRect.left, mRect.top)
+					);
+					//删除导弹
+					m_ObjList[enBomb].RemoveAt(mPos2);
+					delete pBomb;
+
+					//删除敌机
+					m_ObjList[enEnemy].RemoveAt(ePos2);
+					delete pEnemy;
+
+
+					//start 计分系统
+					if (pDoc->GetScore() <= pDoc->getLevel() * 1000) {
+						pDoc->Goal();
+					}
+					//end 计分系统
+					break;
+				}
+			}
+		}		
+		//end boss
+	}
+		
 }
 void CPlaneGameView::OnTimer(UINT_PTR nIDEvent)
 {
@@ -433,7 +473,7 @@ void CPlaneGameView::cleanAndRestart()
 	
 }
 
-void CPlaneGameView::GodWillHelpYou()
+void CPlaneGameView::GodHelpYou()
 {
 	CPlaneGameDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
@@ -447,11 +487,14 @@ void CPlaneGameView::GodWillHelpYou()
 		m_ObjList[enExplosion].AddTail(
 			new CExplosion(
 				r.left,
-				r.top
+				r.top - 53
 			)
 		);
 
-		pDoc->Goal();
+		if (pDoc->GetScore() < pDoc->getLevel() * 1000) {
+			pDoc->Goal();
+		}
+		
 	}
 	m_ObjList[enEnemy].RemoveAll();
 	m_ObjList[enBall].RemoveAll();
@@ -466,7 +509,7 @@ void CPlaneGameView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 		bPause = !bPause;
 		break;
 	case 'G':
-		GodWillHelpYou();
+		GodHelpYou();
 		break;
 	}
 	CView::OnKeyDown(nChar, nRepCnt, nFlags);

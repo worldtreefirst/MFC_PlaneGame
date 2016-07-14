@@ -6,6 +6,7 @@
 CImageList CBackground::m_Images;
 CBackground::CBackground():point0(0,0),point1(0,-WINDOW_HEIGHT)
 {
+	level = 1;
 }
 
 
@@ -15,7 +16,7 @@ CBackground::~CBackground()
 
 BOOL CBackground::LoadImage()
 {
-	CGameObject::LoadImage(m_Images, IDB_BACKGROUND, RGB(0, 0, 0), 600, 1000, 1);
+	CGameObject::LoadImage(m_Images, IDB_BACKGROUND, RGB(0, 0, 0), 600, 1000, 4);
 	return TRUE;
 }
 
@@ -41,8 +42,18 @@ BOOL CBackground::Draw(CDC * pDC, BOOL bPause)
 		}
 	}
 
-	m_Images.Draw(pDC, 0, point0, ILD_TRANSPARENT);
-	m_Images.Draw(pDC, 0, point1, ILD_TRANSPARENT);
+	m_Images.Draw(pDC, level % 4 + 1, point0, ILD_TRANSPARENT);
+	m_Images.Draw(pDC, level % 4 + 1, point1, ILD_TRANSPARENT);
 	
 	return TRUE;
+}
+
+void CBackground::setLevel(int l)
+{
+	level = l;
+}
+
+void CBackground::levelUp() 
+{
+	level++;
 }
