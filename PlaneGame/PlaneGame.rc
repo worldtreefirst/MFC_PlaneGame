@@ -196,19 +196,19 @@ END
 // Bitmap
 //
 
-IDB_EXPLOSION           BITMAP                  "plane\\explosion.BMP"
+IDB_EXPLOSION           BITMAP                  "images\\explosion.bmp"
 
-IDB_ME                  BITMAP                  "plane\\me.bmp"
+IDB_ME                  BITMAP                  "images\\me.bmp"
 
-IDB_BOMB                BITMAP                  "plane\\bomb.bmp"
+IDB_BOMB                BITMAP                  "images\\bomb.bmp"
 
-IDB_BALL                BITMAP                  "plane\\ball.BMP"
+IDB_BALL                BITMAP                  "images\\ball.bmp"
 
-IDB_ENEMY               BITMAP                  "plane\\enemy.bmp"
+IDB_ENEMY               BITMAP                  "images\\enemy.bmp"
 
-IDB_BOSS                BITMAP                  "C:\\vsprojects\\resources\\boss.bmp"
+IDB_BOSS                BITMAP                  "images\\boss.bmp"
 
-IDB_BACKGROUND          BITMAP                  "C:\\vsprojects\\resources\\bk.bmp"
+IDB_BACKGROUND          BITMAP                  "images\\bk.bmp"
 
 
 /////////////////////////////////////////////////////////////////////////////

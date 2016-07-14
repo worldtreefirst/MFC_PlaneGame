@@ -160,6 +160,13 @@
     <Image Include="..\..\resources\bg3.bmp" />
     <Image Include="..\..\resources\bk.bmp" />
     <Image Include="..\..\resources\boss.bmp" />
+    <Image Include="images\ball.bmp" />
+    <Image Include="images\bk.bmp" />
+    <Image Include="images\bomb.bmp" />
+    <Image Include="images\boss.bmp" />
+    <Image Include="images\enemy.bmp" />
+    <Image Include="images\explosion.bmp" />
+    <Image Include="images\me.bmp" />
     <Image Include="plane\ball.BMP" />
     <Image Include="plane\ball1.BMP" />
     <Image Include="plane\ball2.bmp" />

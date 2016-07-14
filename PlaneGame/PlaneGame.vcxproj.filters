@@ -181,6 +181,27 @@
     <Image Include="..\..\resources\bk.bmp">
       <Filter>资源文件</Filter>
     </Image>
+    <Image Include="images\bk.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="images\explosion.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="images\me.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="images\bomb.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="images\ball.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="images\enemy.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="images\boss.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="PlaneGame.rc">
