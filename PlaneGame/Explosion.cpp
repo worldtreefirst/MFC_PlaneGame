@@ -23,6 +23,7 @@ BOOL CExplosion::Draw(CDC* pDC,BOOL bPause)
 	//用新位置绘制图像
 	m_Images.Draw(pDC,m_nProcess,m_ptPos,ILD_TRANSPARENT);
 	m_nProcess++;
+
 	return TRUE;
 }
 

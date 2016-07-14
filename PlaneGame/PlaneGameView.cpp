@@ -18,6 +18,9 @@
 #include "Background.h"
 #include "Boss.h"
 
+#include <mmsystem.h>
+#pragma comment(lib,"winmm.lib")
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -304,6 +307,11 @@ void CPlaneGameView::AI()
 			CPoint pt = m_pMe->GetPoint();
 			m_ObjList[enBomb].AddTail(new CBomb(pt.x+10,pt.y+10));
 			m_ObjList[enBomb].AddTail(new CBomb(pt.x+30,pt.y+10));
+			if (pDoc->getLevel() > 1) {
+				m_ObjList[enBomb].AddTail(new CBomb(pt.x , pt.y + 10));
+				m_ObjList[enBomb].AddTail(new CBomb(pt.x + 40, pt.y + 10));
+			}
+			PlaySound(TEXT("sound\\shoot.wav"), NULL, SND_FILENAME | SND_ASYNC);
 		}
 	}
 
