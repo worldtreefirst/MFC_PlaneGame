@@ -134,6 +134,7 @@ void CPlaneGameView::StopGame()
 
 BOOL CPlaneGameView::InitGame()
 {
+	PlaySound(TEXT("sound\\bgm.wav"), NULL, SND_LOOP | SND_FILENAME | SND_ASYNC);
 	bPause = TRUE;
 	CRect rc;
 	GetClientRect(rc);
