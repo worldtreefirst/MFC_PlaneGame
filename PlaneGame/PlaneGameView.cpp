@@ -306,7 +306,6 @@ void CPlaneGameView::AI()
 			m_ObjList[enBomb].AddTail(new CBomb(pt.x, pt.y + 10));
 			m_ObjList[enBomb].AddTail(new CBomb(pt.x + 40, pt.y + 10));
 		}
-		PlaySound(TEXT("sound\\shoot.wav"), NULL, SND_FILENAME | SND_ASYNC);
 	}
 
 
