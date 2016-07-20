@@ -74,6 +74,8 @@ void CPlaneGameDoc::Dump(CDumpContext& dc) const
 {
 	CDocument::Dump(dc);
 }
+#endif //_DEBUG
+
 void CPlaneGameDoc::InitScore()
 {
 	score = 0;
@@ -122,7 +124,7 @@ int CPlaneGameDoc::getLevel() const
 {
 	return level;
 }
-#endif //_DEBUG
+
 
 
 // CPlaneGameDoc √¸¡Ó
