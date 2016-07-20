@@ -77,6 +77,6 @@ void CBoss::levelUp()
 {
 	level++;
 	m_nImgIndex = level%5 + 1;
-	lives = level * 100;
+	lives = level * 50;
 	show = FALSE;
 }

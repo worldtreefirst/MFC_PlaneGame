@@ -189,13 +189,14 @@ void CPlaneGameView::UpdateFrame(CDC* pMemDC)
 		m_pMe->Draw(m_pMemDC,bPause);
 		pMemDC->SetBkMode(TRANSPARENT);
 		pMemDC->SetTextColor(RGB(255, 255, 255));
-	   CString text,lives,level;
-	   text.Format(_T("Current Score: %d"), pDoc->GetScore());
-	   lives.Format(_T("Rest lives: %d"), pDoc->getCurrrentLives());
-	   level.Format(_T("Current level: %d"), pDoc->getLevel());
-	   pMemDC->TextOut(15, 15, text);
-	   pMemDC->TextOut(15, 35, lives);
-	   pMemDC->TextOut(15, 55, level);
+		pMemDC->SetTextAlign(0);
+		CString text,lives,level;
+		text.Format(_T("Current Score: %d"), pDoc->GetScore());
+		lives.Format(_T("Rest lives: %d"), pDoc->getCurrrentLives());
+		level.Format(_T("Current level: %d"), pDoc->getLevel());
+		pMemDC->TextOut(15, 15, text);
+		pMemDC->TextOut(15, 35, lives);
+		pMemDC->TextOut(15, 55, level);
 	}
 	else
 	{   //Game Over
