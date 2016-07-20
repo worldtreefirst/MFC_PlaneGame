@@ -153,15 +153,6 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\..\background5.bmp" />
-    <Image Include="..\..\resources\b.bmp" />
-    <Image Include="..\..\resources\background.bmp" />
-    <Image Include="..\..\resources\background7.bmp" />
-    <Image Include="..\..\resources\bg1.bmp" />
-    <Image Include="..\..\resources\bg2.bmp" />
-    <Image Include="..\..\resources\bg3.bmp" />
-    <Image Include="..\..\resources\bk.bmp" />
-    <Image Include="..\..\resources\boss.bmp" />
     <Image Include="images\ball.bmp" />
     <Image Include="images\bk.bmp" />
     <Image Include="images\bomb.bmp" />
@@ -169,29 +160,14 @@
     <Image Include="images\enemy.bmp" />
     <Image Include="images\explosion.bmp" />
     <Image Include="images\me.bmp" />
-    <Image Include="plane\ball.BMP" />
-    <Image Include="plane\ball1.BMP" />
-    <Image Include="plane\ball2.bmp" />
-    <Image Include="plane\ball3.BMP" />
-    <Image Include="plane\bitmap1.bmp" />
-    <Image Include="plane\bomb.bmp" />
-    <Image Include="plane\enemy.bmp" />
-    <Image Include="plane\explosion.BMP" />
-    <Image Include="plane\me.bmp" />
-    <Image Include="plane\plane1.bmp" />
-    <Image Include="plane\plane2.bmp" />
-    <Image Include="plane\plane3.bmp" />
-    <Image Include="plane\thunder.bmp" />
     <Image Include="res\PlaneGame.ico" />
     <Image Include="res\PlaneGameDoc.ico" />
-    <Image Include="res\Toolbar.bmp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="PlaneGame.rc" />
   </ItemGroup>
   <ItemGroup>
     <None Include="res\PlaneGame.rc2" />
-    <None Include="res\sound1.bin" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />

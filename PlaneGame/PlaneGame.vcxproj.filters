@@ -112,79 +112,10 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="plane\ball.BMP">
-      <Filter>资源文件</Filter>
-    </Image>
-    <Image Include="plane\ball1.BMP">
-      <Filter>资源文件</Filter>
-    </Image>
-    <Image Include="plane\ball2.bmp">
-      <Filter>资源文件</Filter>
-    </Image>
-    <Image Include="plane\ball3.BMP">
-      <Filter>资源文件</Filter>
-    </Image>
-    <Image Include="plane\bitmap1.bmp">
-      <Filter>资源文件</Filter>
-    </Image>
-    <Image Include="plane\bomb.bmp">
-      <Filter>资源文件</Filter>
-    </Image>
-    <Image Include="plane\enemy.bmp">
-      <Filter>资源文件</Filter>
-    </Image>
-    <Image Include="plane\explosion.BMP">
-      <Filter>资源文件</Filter>
-    </Image>
-    <Image Include="plane\me.bmp">
-      <Filter>资源文件</Filter>
-    </Image>
-    <Image Include="plane\plane1.bmp">
-      <Filter>资源文件</Filter>
-    </Image>
-    <Image Include="plane\plane2.bmp">
-      <Filter>资源文件</Filter>
-    </Image>
-    <Image Include="plane\plane3.bmp">
-      <Filter>资源文件</Filter>
-    </Image>
     <Image Include="res\PlaneGame.ico">
       <Filter>资源文件</Filter>
     </Image>
     <Image Include="res\PlaneGameDoc.ico">
-      <Filter>资源文件</Filter>
-    </Image>
-    <Image Include="plane\thunder.bmp">
-      <Filter>资源文件</Filter>
-    </Image>
-    <Image Include="res\Toolbar.bmp">
-      <Filter>资源文件</Filter>
-    </Image>
-    <Image Include="..\..\background5.bmp">
-      <Filter>资源文件</Filter>
-    </Image>
-    <Image Include="..\..\resources\background7.bmp">
-      <Filter>资源文件</Filter>
-    </Image>
-    <Image Include="..\..\resources\background.bmp">
-      <Filter>资源文件</Filter>
-    </Image>
-    <Image Include="..\..\resources\boss.bmp">
-      <Filter>资源文件</Filter>
-    </Image>
-    <Image Include="..\..\resources\bg1.bmp">
-      <Filter>资源文件</Filter>
-    </Image>
-    <Image Include="..\..\resources\bg2.bmp">
-      <Filter>资源文件</Filter>
-    </Image>
-    <Image Include="..\..\resources\bg3.bmp">
-      <Filter>资源文件</Filter>
-    </Image>
-    <Image Include="..\..\resources\b.bmp">
-      <Filter>资源文件</Filter>
-    </Image>
-    <Image Include="..\..\resources\bk.bmp">
       <Filter>资源文件</Filter>
     </Image>
     <Image Include="images\bk.bmp">
@@ -216,9 +147,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="res\PlaneGame.rc2">
-      <Filter>资源文件</Filter>
-    </None>
-    <None Include="res\sound1.bin">
       <Filter>资源文件</Filter>
     </None>
   </ItemGroup>
