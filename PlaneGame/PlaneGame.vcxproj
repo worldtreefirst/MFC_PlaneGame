@@ -117,13 +117,13 @@
   <ItemGroup>
     <ClCompile Include="Background.cpp" />
     <ClCompile Include="Ball.cpp" />
-    <ClCompile Include="Blood.cpp" />
     <ClCompile Include="Bomb.cpp" />
     <ClCompile Include="Boss.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Explosion.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="MainFrm.cpp" />
+    <ClCompile Include="MsgHub.cpp" />
     <ClCompile Include="MyPlane.cpp" />
     <ClCompile Include="PlaneGame.cpp" />
     <ClCompile Include="PlaneGameDoc.cpp" />
@@ -136,7 +136,6 @@
   <ItemGroup>
     <ClInclude Include="Background.h" />
     <ClInclude Include="Ball.h" />
-    <ClInclude Include="Blood.h" />
     <ClInclude Include="Bomb.h" />
     <ClInclude Include="Boss.h" />
     <ClInclude Include="Constant.h" />
@@ -144,6 +143,7 @@
     <ClInclude Include="Explosion.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="MainFrm.h" />
+    <ClInclude Include="MsgHub.h" />
     <ClInclude Include="MyPlane.h" />
     <ClInclude Include="PlaneGame.h" />
     <ClInclude Include="PlaneGameDoc.h" />

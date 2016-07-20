@@ -13,6 +13,7 @@
 #include "Bomb.h"
 #include "Ball.h"
 #include "Explosion.h"
+#include "MsgHub.h"
 #include <atlimage.h>
 
 #include "Background.h"
@@ -47,7 +48,8 @@ CPlaneGameView::~CPlaneGameView()
 
 BOOL CPlaneGameView::PreCreateWindow(CREATESTRUCT& cs)
 {
-	return CView::PreCreateWindow(cs);
+	if (!CView::PreCreateWindow(cs)) return FALSE;
+	return TRUE;
 }
 
 void CPlaneGameView::OnDraw(CDC* /*pDC*/)
@@ -162,6 +164,8 @@ BOOL CPlaneGameView::InitGame()
 	//启动游戏
 	SetTimer(1,25,NULL);
 
+	CMsgHub::GetInstance()->ShowMessage("enter键开始游戏，enter或p暂停游戏，WASD控制");
+
 	return TRUE;
 }
 
@@ -237,6 +241,8 @@ void CPlaneGameView::UpdateFrame(CDC* pMemDC)
 		m_pBoss->Draw(pMemDC, bPause);
 	}
 
+	CMsgHub::GetInstance()->Draw(pMemDC, bPause);
+
 	//复制内存DC到设备DC
 	m_pDC->BitBlt(0,0,WINDOW_WIDTH,WINDOW_HEIGHT,m_pMemDC,0,0,SRCCOPY);
 }
@@ -290,19 +296,16 @@ void CPlaneGameView::AI()
 	}
 	
 	//产生战机导弹
-	if(GetKey(VK_SPACE)==1)//按下了空格键
+	if (m_pMe != NULL && m_pMe->Fired())
 	{
-		if(m_pMe!=NULL && m_pMe->Fired())
-		{
-			CPoint pt = m_pMe->GetPoint();
-			m_ObjList[enBomb].AddTail(new CBomb(pt.x+10,pt.y+10));
-			m_ObjList[enBomb].AddTail(new CBomb(pt.x+30,pt.y+10));
-			if (pDoc->getLevel() > 1) {
-				m_ObjList[enBomb].AddTail(new CBomb(pt.x , pt.y + 10));
-				m_ObjList[enBomb].AddTail(new CBomb(pt.x + 40, pt.y + 10));
-			}
-			PlaySound(TEXT("sound\\shoot.wav"), NULL, SND_FILENAME | SND_ASYNC);
+		CPoint pt = m_pMe->GetPoint();
+		m_ObjList[enBomb].AddTail(new CBomb(pt.x + 10, pt.y + 10));
+		m_ObjList[enBomb].AddTail(new CBomb(pt.x + 30, pt.y + 10));
+		if (pDoc->getLevel() > 1) {
+			m_ObjList[enBomb].AddTail(new CBomb(pt.x, pt.y + 10));
+			m_ObjList[enBomb].AddTail(new CBomb(pt.x + 40, pt.y + 10));
 		}
+		PlaySound(TEXT("sound\\shoot.wav"), NULL, SND_FILENAME | SND_ASYNC);
 	}
 
 
@@ -393,6 +396,8 @@ void CPlaneGameView::AI()
 				background->levelUp();
 				m_pBoss->levelUp();
 				pDoc->levelUp();
+
+				CMsgHub::GetInstance()->ShowMessage("Level Up");
 			}
 			//end 计分系统
 			break;

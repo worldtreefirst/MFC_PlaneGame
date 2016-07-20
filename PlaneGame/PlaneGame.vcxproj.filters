@@ -54,7 +54,7 @@
     <ClCompile Include="Boss.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Blood.cpp">
+    <ClCompile Include="MsgHub.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -107,7 +107,7 @@
     <ClInclude Include="Boss.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Blood.h">
+    <ClInclude Include="MsgHub.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

@@ -6,16 +6,13 @@ CImageList CEnemy::m_Images;
 
 CEnemy::CEnemy(void)
 {
-	//����ȷ��Xλ��
 	m_ptPos.x = rand() % (WINDOW_WIDTH - ENEMY_HEIGHT) + 1;
 
-	//����ȷ��ͼ������
-	m_nImgIndex = rand()%2;
+	m_nImgIndex = 0;//rand()%2;
 
-	//����ͼ������ȷ������
 	m_nMotion=1;
 	m_ptPos.y=-ENEMY_HEIGHT;
-	if (m_nImgIndex%2!=0)//������ͼ��������ż��
+	if (m_nImgIndex%2!=0)
 	{
 		m_nMotion=-1;
 		m_ptPos.y = WINDOW_HEIGHT+ENEMY_HEIGHT;
