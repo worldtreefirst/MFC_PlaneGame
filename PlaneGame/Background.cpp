@@ -42,8 +42,8 @@ BOOL CBackground::Draw(CDC * pDC, BOOL bPause)
 		}
 	}
 
-	m_Images.Draw(pDC, level % 4 + 1, point0, ILD_TRANSPARENT);
-	m_Images.Draw(pDC, level % 4 + 1, point1, ILD_TRANSPARENT);
+	m_Images.Draw(pDC, level % 4, point0, ILD_TRANSPARENT);
+	m_Images.Draw(pDC, level % 4, point1, ILD_TRANSPARENT);
 	
 	return TRUE;
 }

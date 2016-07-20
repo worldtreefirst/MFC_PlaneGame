@@ -76,7 +76,7 @@ void CBoss::setLevel(int l)
 void CBoss::levelUp()
 {
 	level++;
-	m_nImgIndex = level%5 + 1;
+	m_nImgIndex = level%5;
 	lives = level * 50;
 	show = FALSE;
 }
