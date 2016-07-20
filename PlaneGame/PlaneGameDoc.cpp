@@ -116,6 +116,7 @@ void CPlaneGameDoc::recover()
 void CPlaneGameDoc::levelUp()
 {
 	++level;
+	recover();
 }
 int CPlaneGameDoc::getLevel() const
 {

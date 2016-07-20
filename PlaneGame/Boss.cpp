@@ -25,7 +25,7 @@ CBoss::~CBoss()
 BOOL CBoss::Draw(CDC * pDC, BOOL bPause)
 {
 	m_nWait++;
-	if (m_nWait > 15) {
+	if (m_nWait > 20) {
 		m_nWait = 0;
 	}
 

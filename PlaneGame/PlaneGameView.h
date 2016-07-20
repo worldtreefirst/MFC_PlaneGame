@@ -10,7 +10,7 @@ class CBoss;
 class CPlaneGameView : public CView
 {
 
-	enum ObjType{enEnemy,enBomb,enBall,enExplosion};
+	enum ObjType{enEnemy,enBomb,enBall,enExplosion,enBossBall};
 
 protected: // 仅从序列化创建
 	CPlaneGameView();
@@ -71,7 +71,7 @@ protected:
 	CBoss* m_pBoss;
 	CBackground* background;
 
-	CObList    m_ObjList[4];
+	CObList    m_ObjList[5];
 
 
 

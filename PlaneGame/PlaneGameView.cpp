@@ -25,13 +25,9 @@
 #define new DEBUG_NEW
 #endif
 
-
-// CPlaneGameView
-
 IMPLEMENT_DYNCREATE(CPlaneGameView, CView)
 
 BEGIN_MESSAGE_MAP(CPlaneGameView, CView)
-	// 标准打印命令
 	ON_COMMAND(ID_FILE_PRINT, &CView::OnFilePrint)
 	ON_COMMAND(ID_FILE_PRINT_DIRECT, &CView::OnFilePrint)
 	ON_COMMAND(ID_FILE_PRINT_PREVIEW, &CView::OnFilePrintPreview)
@@ -41,12 +37,8 @@ BEGIN_MESSAGE_MAP(CPlaneGameView, CView)
 	ON_WM_KEYDOWN()
 END_MESSAGE_MAP()
 
-// CPlaneGameView 构造/析构
-
 CPlaneGameView::CPlaneGameView():m_pMe(NULL)
-{
-	// TODO: 在此处添加构造代码
-	
+{	
 }
 
 CPlaneGameView::~CPlaneGameView()
@@ -55,13 +47,8 @@ CPlaneGameView::~CPlaneGameView()
 
 BOOL CPlaneGameView::PreCreateWindow(CREATESTRUCT& cs)
 {
-	// TODO: 在此处通过修改
-	//  CREATESTRUCT cs 来修改窗口类或样式
-
 	return CView::PreCreateWindow(cs);
 }
-
-// CPlaneGameView 绘制
 
 void CPlaneGameView::OnDraw(CDC* /*pDC*/)
 {
@@ -69,27 +56,19 @@ void CPlaneGameView::OnDraw(CDC* /*pDC*/)
 	ASSERT_VALID(pDoc);
 	if (!pDoc)
 		return;
-
-	// TODO: 在此处为本机数据添加绘制代码
 }
-
-
-// CPlaneGameView 打印
 
 BOOL CPlaneGameView::OnPreparePrinting(CPrintInfo* pInfo)
 {
-	// 默认准备
 	return DoPreparePrinting(pInfo);
 }
 
 void CPlaneGameView::OnBeginPrinting(CDC* /*pDC*/, CPrintInfo* /*pInfo*/)
 {
-	// TODO: 添加额外的打印前进行的初始化过程
 }
 
 void CPlaneGameView::OnEndPrinting(CDC* /*pDC*/, CPrintInfo* /*pInfo*/)
 {
-	// TODO: 添加打印后进行的清理过程
 }
 
 
@@ -118,7 +97,6 @@ CPlaneGameDoc* CPlaneGameView::GetDocument() const // 非调试版本是内联的
 void CPlaneGameView::OnInitialUpdate()
 {
 	CView::OnInitialUpdate();
-	// TODO: 在此添加专用代码和/或调用基类
 	//初始化游戏
 	InitGame();
 }
@@ -168,7 +146,6 @@ BOOL CPlaneGameView::InitGame()
 	m_pMe = new CMyPlane;
 	m_pBoss = new CBoss;
 	//产生背景
-	//TODO
 	background = new CBackground;
 	//start 计分系统
 	CPlaneGameDoc* pDoc = GetDocument();
@@ -209,7 +186,7 @@ void CPlaneGameView::UpdateFrame(CDC* pMemDC)
 		pMemDC->SetBkMode(TRANSPARENT);
 		pMemDC->SetTextColor(RGB(255, 255, 255));
 	   CString text,lives,level;
-	   text.Format(_T("Current Socre: %d"), pDoc->GetScore());
+	   text.Format(_T("Current Score: %d"), pDoc->GetScore());
 	   lives.Format(_T("Rest lives: %d"), pDoc->getCurrrentLives());
 	   level.Format(_T("Current level: %d"), pDoc->getLevel());
 	   pMemDC->TextOut(15, 15, text);
@@ -229,6 +206,18 @@ void CPlaneGameView::UpdateFrame(CDC* pMemDC)
 
 	}
 	
+	if (m_pBoss->isShow() && m_pBoss->Fired())
+	{
+		if (m_pBoss->Fired()) {
+			//产生BOSS炸弹
+			CPoint p = m_pBoss->GetPoint();
+			//m_ObjList[enBall].AddTail(new CBall(p.x + 5, p.y + 63, 1));
+			m_ObjList[enBall].AddTail(new CBall(p.x + 15, p.y + 63, 1));
+			m_ObjList[enBall].AddTail(new CBall(p.x + 75, p.y + 63, 1));
+			//m_ObjList[enBall].AddTail(new CBall(p.x + 85, p.y + 63, 1));
+		}
+	}
+
 	//绘制 导弹、爆炸、敌机、子弹
 	for(int i=0;i<4;i++)
 	{
@@ -361,10 +350,6 @@ void CPlaneGameView::AI()
 			m_ObjList[enBall].RemoveAt(bPos2);
 			delete pBall;
 
-			//删除战机
-			//delete m_pMe;
-			//m_pMe=NULL;
-
 			if (pDoc->getCurrrentLives() > 0) {
 				pDoc->hit();
 			} else {
@@ -492,7 +477,6 @@ void CPlaneGameView::GodHelpYou()
 		return;
 	
 	POSITION p;
-	//p1 = m_ObjList[enEnemy].GetTailPosition();
 	for (p = m_ObjList[enEnemy].GetHeadPosition(); p!=NULL;) {
 		CRect r = ((CEnemy*)m_ObjList[enEnemy].GetNext(p))->GetRect();
 		m_ObjList[enExplosion].AddTail(

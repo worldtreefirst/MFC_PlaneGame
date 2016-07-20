@@ -7,7 +7,7 @@ public:
 	CBall(int x,int y,int nMontion);
 	~CBall(void);
 
-	BOOL Draw(CDC* pDC,BOOL bPause);
+	BOOL Draw(CDC* pDC, BOOL bPause);
 
 	static BOOL LoadImage();
 
